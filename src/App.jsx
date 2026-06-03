@@ -135,13 +135,13 @@ function CatCard({ cat, dayDone, onToggle }) {
   );
 }
 function PremiumLogin({
-  email,
-  password,
-  setEmail,
-  setPassword,
-  loginEmail,
-  signInGoogle,
-  forgotPassword,
+email,
+password,
+setEmail,
+setPassword,
+loginEmail,
+signInGoogle,
+forgotPassword,
 }) {
 
 
@@ -325,10 +325,15 @@ HUNTER LOGIN
           <div className="text-right mt-3">
             <button
   onClick={forgotPassword}
-  className="text-purple-300 text-sm hover:text-white transition"
+  className="
+  text-purple-300
+  text-sm
+  hover:text-white
+  transition
+  "
 >
-              Forgot Password?
-            </button>
+  Forgot Password?
+</button>
           </div>
 
           {/* LOGIN BTN */}
@@ -558,14 +563,14 @@ const logout =
   }, [done]);
 if (!user) {
   return (
-    <PremiumLogin
-  email={email}
-  password={password}
-  setEmail={setEmail}
-  setPassword={setPassword}
-  loginEmail={loginEmail}
-  signInGoogle={signInGoogle}
-  forgotPassword={forgotPassword}
+   <PremiumLogin
+email={email}
+password={password}
+setEmail={setEmail}
+setPassword={setPassword}
+loginEmail={loginEmail}
+signInGoogle={signInGoogle}
+forgotPassword={forgotPassword}
 />
   );
 }
