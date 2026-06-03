@@ -17,6 +17,7 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 
 import {
@@ -138,10 +139,9 @@ function PremiumLogin({
   password,
   setEmail,
   setPassword,
-  
   loginEmail,
   signInGoogle,
-  
+  forgotPassword,
 }) {
 
 
@@ -181,15 +181,18 @@ py-8
 ">
 
         {/* Logo */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 sm:mb-12">
 
           <h1
   
   
 className="
-text-[48px]
-sm:text-[70px]
-md:text-[100px]
+text-[56px]
+sm:text-[95px]
+md:text-[120px]
+lg:text-[140px]
+sm:text-[95px]
+md:text-[120px]
 lg:text-[140px]
 leading-none
 "
@@ -213,7 +216,10 @@ lg:text-[28px]
 "
 style={{
 fontFamily: "Cinzel, serif",
-letterSpacing: "0.35em",
+letterSpacing:
+window.innerWidth < 640
+? "0.22em"
+: "0.35em",
 }}
 >
 
@@ -231,19 +237,18 @@ letterSpacing: "0.35em",
 
         {/* Login Card */}
         <div
+
 className="
-w-full
-max-w-[420px]
-sm:max-w-[480px]
-lg:max-w-[520px]
-rounded-[24px]
-sm:rounded-[30px]
-p-4
-sm:p-6
-lg:p-8
+w-[94%]
+sm:w-[92%]
+max-w-[520px]
+rounded-[30px]
+p-[22px]
+sm:p-8
 border
 relative
 overflow-hidden
+mx-auto
 "
           style={{
             background:
@@ -263,22 +268,22 @@ overflow-hidden
           <div className="absolute inset-0 rounded-[30px] border border-purple-400/20 pointer-events-none" />
 
 
-          <div className="flex items-center justify-center gap-5 mb-10">
+          <div className="flex items-center justify-center gap-2 sm:gap-5 mb-8 sm:mb-10">
 
-  <div className="hidden sm:block w-24 h-px bg-cyan-400" />
+  <div className="w-24 h-px bg-cyan-400" />
 
   <h3
-    style={{
-      fontFamily: "Cinzel, serif",
-      letterSpacing: "4px",
-      fontSize: "clamp(18px,4vw,30px)",
-    }}
-    className="text-white"
-  >
-    HUNTER LOGIN
-  </h3>
+style={{
+fontFamily: "Cinzel, serif",
+letterSpacing: "4px",
+fontSize: "30px",
+}}
+className="text-white whitespace-nowrap"
+>
+HUNTER LOGIN
+</h3>
 
-  <div className="hidden sm:block w-24 h-px bg-cyan-400" />
+<div className="w-10 sm:w-24 h-px bg-cyan-400" />
 
 </div>
           {activeTab === "email" && (
@@ -318,7 +323,10 @@ overflow-hidden
           </div>
 
           <div className="text-right mt-3">
-            <button className="text-purple-300 text-sm hover:text-white transition">
+            <button
+  onClick={forgotPassword}
+  className="text-purple-300 text-sm hover:text-white transition"
+>
               Forgot Password?
             </button>
           </div>
@@ -353,24 +361,58 @@ overflow-hidden
           <div className="mb-4">
             
             <button
-              onClick={signInGoogle}
-className="
-w-full
-h-[56px]
-sm:h-[64px]
-lg:h-[74px]
-...
-"            >
-              <div className="flex items-center gap-5">
-               <div className="w-9 h-9 sm:w-12 sm:h-12"> 
-                  <FaGoogle className="text-cyan-400 text-xl" />
-                </div>
+  onClick={signInGoogle}
+  className="
+  w-full
+  h-[58px]
+sm:h-[74px]
+  rounded-[24px]
+  border
+  border-[#6f3cff66]
+  bg-[#050816cc]
+  backdrop-blur-xl
+  px-7
+  flex
+  items-center
+  gap-5
+  justify-start
+  transition-all
+  duration-300
+  hover:scale-[1.01]
+  hover:border-[#8d5bff]
+  hover:shadow-[0_0_30px_rgba(129,92,255,0.35)]
+  "
+>
+  <div className="flex items-center gap-5 w-full">
+    
+    <div className="
+     w-10 h-10 sm:w-12 sm:h-12
+      rounded-full
+      bg-[#14172b]
+      flex items-center justify-center
+      flex-shrink-0
+    ">
+      <FaGoogle className="text-cyan-400 text-xl" />
+    </div>
 
-                <span className="text-white tracking-[2px] font-medium text-[15px]">
-                  LOGIN WITH GOOGLE
-                </span>
-              </div>
-            </button>
+    <span
+className="
+text-white
+tracking-[1px]
+sm:tracking-[2px]
+font-medium
+text-[13px]
+sm:text-[15px]
+text-center
+flex-1
+"
+>
+    
+      LOGIN WITH GOOGLE
+    </span>
+
+  </div>
+</button>
           </div>
 
           
@@ -473,7 +515,28 @@ const loginEmail =
       }
     }
   };
+const forgotPassword =
+  async () => {
 
+    if (!email) {
+      alert("Please enter your email first");
+      return;
+    }
+
+    try {
+      await sendPasswordResetEmail(
+        auth,
+        email
+      );
+
+      alert(
+        "Password reset link sent to your email"
+      );
+
+    } catch (err) {
+      alert(err.message);
+    }
+  };
 
 const logout =
   async () => {
@@ -496,15 +559,14 @@ const logout =
 if (!user) {
   return (
     <PremiumLogin
-      email={email}
-      password={password}
-      setEmail={setEmail}
-      setPassword={setPassword}
-   
-      loginEmail={loginEmail}
-      signInGoogle={signInGoogle}
-    
-    />
+  email={email}
+  password={password}
+  setEmail={setEmail}
+  setPassword={setPassword}
+  loginEmail={loginEmail}
+  signInGoogle={signInGoogle}
+  forgotPassword={forgotPassword}
+/>
   );
 }
   if (view === "calendar") return (
