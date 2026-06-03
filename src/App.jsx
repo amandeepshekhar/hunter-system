@@ -154,8 +154,8 @@ const [activeTab, setActiveTab] = useState("email");
   backgroundImage: `url(${loginBg})`,
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
-  backgroundPosition: "center",
-  backgroundAttachment: "fixed",
+  backgroundPosition: "center center",
+backgroundAttachment: "scroll",
   backgroundColor: "#02030a",
 }}
   >
@@ -167,17 +167,34 @@ const [activeTab, setActiveTab] = useState("email");
 
     {/* Main Container */}
     <div
-  
-  className="min-h-screen w-full flex flex-col items-center justify-center">
+className="
+min-h-screen
+w-full
+flex
+flex-col
+items-center
+justify-center
+px-4
+sm:px-6
+lg:px-8
+py-8
+">
 
         {/* Logo */}
         <div className="text-center mb-12">
 
           <h1
-  className="text-white tracking-[10px]"
+  
+  
+className="
+text-[48px]
+sm:text-[70px]
+md:text-[100px]
+lg:text-[140px]
+leading-none
+"
   style={{
     fontFamily: "Cinzel, serif",
-    fontSize: "140px",
     fontWeight: 700,
     textShadow:
       "0 0 15px #7c6cff, 0 0 40px #7c6cff",
@@ -186,21 +203,23 @@ const [activeTab, setActiveTab] = useState("email");
             ARISE
           </h1>
 
-          <h2
-
-  className="text-purple-300"
-
-  style={{
-
-    fontFamily: "Cinzel, serif",
-
-    letterSpacing: "12px",
-
-    fontSize: "28px",
-
-  }}
-
+         <h2
+className="
+text-purple-300
+text-[12px]
+sm:text-[18px]
+md:text-[22px]
+lg:text-[28px]
+"
+style={{
+fontFamily: "Cinzel, serif",
+letterSpacing: "0.35em",
+}}
 >
+
+  
+
+
             PROTOCOL
           </h2>
 
@@ -212,7 +231,20 @@ const [activeTab, setActiveTab] = useState("email");
 
         {/* Login Card */}
         <div
-          className="rounded-[30px] p-8 border relative overflow-hidden"
+className="
+w-full
+max-w-[420px]
+sm:max-w-[480px]
+lg:max-w-[520px]
+rounded-[24px]
+sm:rounded-[30px]
+p-4
+sm:p-6
+lg:p-8
+border
+relative
+overflow-hidden
+"
           style={{
             background:
               "rgba(5,8,25,0.65)",
@@ -229,30 +261,24 @@ const [activeTab, setActiveTab] = useState("email");
         >
           {/* Card Glow */}
           <div className="absolute inset-0 rounded-[30px] border border-purple-400/20 pointer-events-none" />
-<div className="absolute top-0 left-0 w-10 h-10 border-t-2 border-l-2 border-cyan-400" />
 
-<div className="absolute top-0 right-0 w-10 h-10 border-t-2 border-r-2 border-cyan-400" />
-
-<div className="absolute bottom-0 left-0 w-10 h-10 border-b-2 border-l-2 border-cyan-400" />
-
-<div className="absolute bottom-0 right-0 w-10 h-10 border-b-2 border-r-2 border-cyan-400" />
 
           <div className="flex items-center justify-center gap-5 mb-10">
 
-  <div className="w-24 h-px bg-cyan-400" />
+  <div className="hidden sm:block w-24 h-px bg-cyan-400" />
 
   <h3
     style={{
       fontFamily: "Cinzel, serif",
       letterSpacing: "4px",
-      fontSize: "30px",
+      fontSize: "clamp(18px,4vw,30px)",
     }}
     className="text-white"
   >
     HUNTER LOGIN
   </h3>
 
-  <div className="w-24 h-px bg-cyan-400" />
+  <div className="hidden sm:block w-24 h-px bg-cyan-400" />
 
 </div>
           {activeTab === "email" && (
@@ -270,7 +296,7 @@ const [activeTab, setActiveTab] = useState("email");
               onChange={(e) =>
                 setEmail(e.target.value)
               }
-              className="w-full h-[74px] bg-[#050816cc] border border-[#6f3cff66] rounded-[18px] px-6 text-white outline-none focus:border-[#8d5bff] transition"
+              className="w-full h-[56px] sm:h-[64px] lg:h-[74px] bg-[#050816cc] border border-[#6f3cff66] rounded-[18px] px-6 text-white outline-none focus:border-[#8d5bff] transition"
             />
           </div>
 
@@ -287,7 +313,7 @@ const [activeTab, setActiveTab] = useState("email");
               onChange={(e) =>
                 setPassword(e.target.value)
               }
-              className="w-full h-[74px] bg-[#050816cc] border border-[#6f3cff66] rounded-[18px] px-6 text-white outline-none focus:border-[#8d5bff] transition"
+              className="w-full h-[56px] sm:h-[64px] lg:h-[74px] bg-[#050816cc] border border-[#6f3cff66] rounded-[18px] px-6 text-white outline-none focus:border-[#8d5bff] transition"
             />
           </div>
 
@@ -300,7 +326,7 @@ const [activeTab, setActiveTab] = useState("email");
           {/* LOGIN BTN */}
           <button
             onClick={loginEmail}
-            className="w-full mt-6 h-[74px] rounded-[24px] text-white tracking-[2px] font-semibold text-[18px]"
+            className="w-full mt-6 h-[56px] sm:h-[64px] lg:h-[74px] rounded-[24px] text-white tracking-[2px] font-semibold text-[18px]"
             style={{
               background:
                 "linear-gradient(90deg,#9333ea,#2563eb)",
@@ -328,10 +354,15 @@ const [activeTab, setActiveTab] = useState("email");
             
             <button
               onClick={signInGoogle}
-              className="w-full h-[74px] rounded-[24px] border border-[#6f3cff66] bg-[#050816cc] backdrop-blur-xl px-7 flex items-center gap-5 justify-start transition-all duration-300 hover:scale-[1.01] hover:border-[#8d5bff] hover:shadow-[0_0_30px_rgba(129,92,255,0.35)]"
-            >
+className="
+w-full
+h-[56px]
+sm:h-[64px]
+lg:h-[74px]
+...
+"            >
               <div className="flex items-center gap-5">
-                <div className="w-12 h-12 rounded-full bg-[#14172b] flex items-center justify-center">
+               <div className="w-9 h-9 sm:w-12 sm:h-12"> 
                   <FaGoogle className="text-cyan-400 text-xl" />
                 </div>
 
@@ -478,13 +509,18 @@ if (!user) {
 }
   if (view === "calendar") return (
     <div className="min-h-screen bg-slate-950 text-slate-200 p-4" style={{ fontFamily: "system-ui" }}>
-      <div className="max-w-xl mx-auto">
+      <div className="max-w-md
+sm:max-w-xl
+lg:max-w-2xl mx-auto">
         <div className="flex justify-between items-center mb-5">
           <div className="text-amber-400 font-black text-sm tracking-widest">📅 60-DAY PROGRESS MAP</div>
           <button onClick={() => setView("quests")} className="text-xs text-blue-400 border border-blue-500/30 px-3 py-1.5 rounded-lg hover:bg-blue-400/10 transition-colors">← BACK</button>
         </div>
 
-        <div className="grid gap-1.5 mb-4" style={{ gridTemplateColumns: "repeat(10, 1fr)" }}>
+        <div className="grid gap-1.5 mb-4" style={{ gridTemplateColumns:
+window.innerWidth < 640
+? "repeat(5,1fr)"
+: "repeat(10,1fr)" }}>
           {Array.from({ length: 60 }, (_, i) => i + 1).map(d => {
             const n = ALL_IDS.filter(id => (done[d] || {})[id]).length;
             const pct = n / ALL_IDS.length;
@@ -537,8 +573,10 @@ if (!user) {
 
       {/* STICKY HEADER */}
       <div className="sticky top-0 z-50 bg-slate-950/96 backdrop-blur border-b border-blue-900/40 px-4 py-2.5">
-        <div className="max-w-xl mx-auto">
-          <div className="flex justify-between items-start">
+        <div className="max-w-md
+sm:max-w-xl
+lg:max-w-2xl mx-auto">
+          <div className="flex flex-col sm:flex-row justify-between items-start gap-3">
             <div>
               <div className="text-blue-400 text-xs font-bold tracking-widest sys-blink">⚔ SYSTEM ACTIVE — ASCENSION PROTOCOL</div>
               <div className="font-black text-sm tracking-wide mt-0.5 gold-shimmer">THE 60-DAY HUNTER SYSTEM</div>
@@ -572,7 +610,9 @@ if (!user) {
 
       {/* DAY NAVIGATOR */}
       <div className="sticky top-[68px] z-40 bg-slate-950/92 backdrop-blur border-b border-slate-800/60 px-4 py-3">
-        <div className="max-w-xl mx-auto flex items-center justify-between">
+        <div className="max-w-md
+sm:max-w-xl
+lg:max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <button
             onClick={() => setDay(d => Math.max(1, d - 1))}
             disabled={day === 1}
@@ -602,7 +642,9 @@ if (!user) {
       </div>
 
       {/* MAIN QUEST BOARD */}
-      <div className="max-w-xl mx-auto px-4 pb-8 pt-4">
+      <div className="max-w-md
+sm:max-w-xl
+lg:max-w-2xl mx-auto px-4 pb-8 pt-4">
 
         {/* Week start alert */}
         {info.isWeekStart && (
@@ -628,7 +670,8 @@ if (!user) {
         {/* Stats panel */}
         <div className="mt-4 p-4 bg-slate-900 rounded-xl border border-slate-800">
           <div className="text-xs text-slate-600 tracking-widest mb-3">HUNTER STATS</div>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-1
+sm:grid-cols-3 gap-2">
             {[
               { label: "CURRENT DAY", val: `${day}/60`, col: "text-blue-400" },
               { label: "DAILY", val: `${dPct.pct}%`, col: dPct.pct === 100 ? "text-emerald-400" : "text-blue-400" },
