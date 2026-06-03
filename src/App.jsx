@@ -1,4 +1,31 @@
-import { useState, useMemo, useCallback, useEffect } from "react";
+import loginBg from "./assets/login-bg.jpeg";
+import {
+  FaGoogle,
+} from "react-icons/fa";
+import {
+  useState,
+  useMemo,
+  useCallback,
+  useEffect,
+} from "react";
+
+import {
+  signInWithPopup,
+  signInWithPhoneNumber,
+  RecaptchaVerifier,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+} from "firebase/auth";
+
+import {
+  auth,
+  googleProvider,
+} from "./firebase";
+
+
+
 
 const TOTAL = 60;
 const START = new Date(2026, 5, 1);
@@ -106,8 +133,245 @@ function CatCard({ cat, dayDone, onToggle }) {
     </div>
   );
 }
+function PremiumLogin({
+  email,
+  password,
+  setEmail,
+  setPassword,
+  
+  loginEmail,
+  signInGoogle,
+  
+}) {
+
+
+const [activeTab, setActiveTab] = useState("email");
+
+      return (
+  <div
+  className="min-h-screen w-full overflow-hidden"
+   style={{
+  backgroundImage: `url(${loginBg})`,
+  backgroundSize: "cover",
+  backgroundRepeat: "no-repeat",
+  backgroundPosition: "center",
+  backgroundAttachment: "fixed",
+  backgroundColor: "#02030a",
+}}
+  >
+    {/* Overlay */}
+    <div className="absolute inset-0 bg-black/30" />
+
+    {/* Glow */}
+    <div className="absolute inset-0 bg-gradient-to-br from-blue-950/20 via-transparent to-purple-950/20" />
+
+    {/* Main Container */}
+    <div
+  
+  className="min-h-screen w-full flex flex-col items-center justify-center">
+
+        {/* Logo */}
+        <div className="text-center mb-12">
+
+          <h1
+  className="text-white tracking-[10px]"
+  style={{
+    fontFamily: "Cinzel, serif",
+    fontSize: "140px",
+    fontWeight: 700,
+    textShadow:
+      "0 0 15px #7c6cff, 0 0 40px #7c6cff",
+  }}
+>
+            ARISE
+          </h1>
+
+          <h2
+
+  className="text-purple-300"
+
+  style={{
+
+    fontFamily: "Cinzel, serif",
+
+    letterSpacing: "12px",
+
+    fontSize: "28px",
+
+  }}
+
+>
+            PROTOCOL
+          </h2>
+
+          <p className="text-slate-300 text-sm mt-3 tracking-[3px] uppercase">
+            Become The Strongest Version
+            Of Yourself
+          </p>
+        </div>
+
+        {/* Login Card */}
+        <div
+          className="rounded-[30px] p-8 border relative overflow-hidden"
+          style={{
+            background:
+              "rgba(5,8,25,0.65)",
+
+            backdropFilter:
+              "blur(20px)",
+
+            border:
+              "1px solid rgba(129,140,248,0.4)",
+
+            boxShadow:
+              "0 0 35px rgba(99,102,241,0.35)",
+          }}
+        >
+          {/* Card Glow */}
+          <div className="absolute inset-0 rounded-[30px] border border-purple-400/20 pointer-events-none" />
+<div className="absolute top-0 left-0 w-10 h-10 border-t-2 border-l-2 border-cyan-400" />
+
+<div className="absolute top-0 right-0 w-10 h-10 border-t-2 border-r-2 border-cyan-400" />
+
+<div className="absolute bottom-0 left-0 w-10 h-10 border-b-2 border-l-2 border-cyan-400" />
+
+<div className="absolute bottom-0 right-0 w-10 h-10 border-b-2 border-r-2 border-cyan-400" />
+
+          <div className="flex items-center justify-center gap-5 mb-10">
+
+  <div className="w-24 h-px bg-cyan-400" />
+
+  <h3
+    style={{
+      fontFamily: "Cinzel, serif",
+      letterSpacing: "4px",
+      fontSize: "30px",
+    }}
+    className="text-white"
+  >
+    HUNTER LOGIN
+  </h3>
+
+  <div className="w-24 h-px bg-cyan-400" />
+
+</div>
+          {activeTab === "email" && (
+            <>
+              {/* EMAIL */}
+          <div className="mb-5">
+            <label className="text-purple-300 text-sm tracking-[4px] uppercase block mb-2">
+              Email
+            </label>
+
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) =>
+                setEmail(e.target.value)
+              }
+              className="w-full h-[74px] bg-[#050816cc] border border-[#6f3cff66] rounded-[18px] px-6 text-white outline-none focus:border-[#8d5bff] transition"
+            />
+          </div>
+
+          {/* PASSWORD */}
+          <div>
+            <label className="text-purple-300 text-sm tracking-[4px] uppercase block mb-2">
+              Password
+            </label>
+
+            <input
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) =>
+                setPassword(e.target.value)
+              }
+              className="w-full h-[74px] bg-[#050816cc] border border-[#6f3cff66] rounded-[18px] px-6 text-white outline-none focus:border-[#8d5bff] transition"
+            />
+          </div>
+
+          <div className="text-right mt-3">
+            <button className="text-purple-300 text-sm hover:text-white transition">
+              Forgot Password?
+            </button>
+          </div>
+
+          {/* LOGIN BTN */}
+          <button
+            onClick={loginEmail}
+            className="w-full mt-6 h-[74px] rounded-[24px] text-white tracking-[2px] font-semibold text-[18px]"
+            style={{
+              background:
+                "linear-gradient(90deg,#9333ea,#2563eb)",
+
+              boxShadow:
+                "0 0 25px rgba(139,92,246,0.6)",
+            }}
+          >
+            LOGIN →
+          </button>
+          </>
+          )}
+
+          {/* Divider */}
+          <div className="flex items-center gap-3 my-8">
+            <div className="h-px bg-purple-500/30 flex-1" />
+            <span className="text-slate-300">
+              OR
+            </span>
+            <div className="h-px bg-purple-500/30 flex-1" />
+          </div>
+
+          {/* GOOGLE */}
+          <div className="mb-4">
+            
+            <button
+              onClick={signInGoogle}
+              className="w-full h-[74px] rounded-[24px] border border-[#6f3cff66] bg-[#050816cc] backdrop-blur-xl px-7 flex items-center gap-5 justify-start transition-all duration-300 hover:scale-[1.01] hover:border-[#8d5bff] hover:shadow-[0_0_30px_rgba(129,92,255,0.35)]"
+            >
+              <div className="flex items-center gap-5">
+                <div className="w-12 h-12 rounded-full bg-[#14172b] flex items-center justify-center">
+                  <FaGoogle className="text-cyan-400 text-xl" />
+                </div>
+
+                <span className="text-white tracking-[2px] font-medium text-[15px]">
+                  LOGIN WITH GOOGLE
+                </span>
+              </div>
+            </button>
+          </div>
+
+          
+
+          
+
+          <div className="text-center mt-8 text-purple-200 tracking-[5px] text-xs">
+            SHADOW MONARCH SYSTEM ACTIVE
+          </div>
+          <div id="recaptcha-container"></div>
+        </div>
+      </div>
+    </div>
+  );
+ }
+
 
 export default function App() {
+  const [user, setUser] = useState(null);
+
+const [email, setEmail] =
+  useState("");
+
+const [password, setPassword] =
+  useState("");
+
+
+
+const [confirmationResult,
+  setConfirmationResult] =
+  useState(null);
+  
  const [day, setDay] = useState(() => {
   const savedDay = localStorage.getItem("hunter-current-day");
   return savedDay ? Number(savedDay) : 1;
@@ -131,7 +395,59 @@ useEffect(() => {
 }, [day]);
   const info = useMemo(() => getDay(day), [day]);
   const dayDone = useMemo(() => done[day] || {}, [done, day]);
+// Listen auth state
+useEffect(() => {
+  const unsubscribe =
+    onAuthStateChanged(
+      auth,
+      (currentUser) => {
+        setUser(currentUser);
+      }
+    );
 
+  return () => unsubscribe();
+}, []);
+
+// Google Login
+const signInGoogle =
+  async () => {
+    try {
+      await signInWithPopup(
+        auth,
+        googleProvider
+      );
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+// Email Login / Signup
+const loginEmail =
+  async () => {
+    try {
+      await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+    } catch {
+      try {
+        await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+      } catch (err) {
+        alert(err.message);
+      }
+    }
+  };
+
+
+const logout =
+  async () => {
+    await signOut(auth);
+  };
   const toggle = useCallback((id) => {
     setDone(p => ({ ...p, [day]: { ...(p[day] || {}), [id]: !(p[day] || {})[id] } }));
   }, [day]);
@@ -146,7 +462,20 @@ useEffect(() => {
       .reduce((s, d) => s + ALL_IDS.filter(id => (done[d] || {})[id]).length, 0);
     return Math.round(total / (ALL_IDS.length * TOTAL) * 100);
   }, [done]);
-
+if (!user) {
+  return (
+    <PremiumLogin
+      email={email}
+      password={password}
+      setEmail={setEmail}
+      setPassword={setPassword}
+   
+      loginEmail={loginEmail}
+      signInGoogle={signInGoogle}
+    
+    />
+  );
+}
   if (view === "calendar") return (
     <div className="min-h-screen bg-slate-950 text-slate-200 p-4" style={{ fontFamily: "system-ui" }}>
       <div className="max-w-xl mx-auto">
@@ -214,9 +543,23 @@ useEffect(() => {
               <div className="text-blue-400 text-xs font-bold tracking-widest sys-blink">⚔ SYSTEM ACTIVE — ASCENSION PROTOCOL</div>
               <div className="font-black text-sm tracking-wide mt-0.5 gold-shimmer">THE 60-DAY HUNTER SYSTEM</div>
             </div>
-            <button onClick={() => setView("calendar")} className="text-xs text-blue-400 border border-blue-500/30 px-2.5 py-1 rounded-lg hover:bg-blue-400/10 transition-colors mt-0.5">
-              📅 MAP
-            </button>
+            <div className="flex flex-col gap-2">
+  <button
+    onClick={() =>
+      setView("calendar")
+    }
+    className="text-xs text-blue-400 border border-blue-500/30 px-2.5 py-1 rounded-lg hover:bg-blue-400/10 transition-colors"
+  >
+    📅 MAP
+  </button>
+
+  <button
+    onClick={logout}
+    className="text-xs text-red-400 border border-red-500/30 px-2.5 py-1 rounded-lg hover:bg-red-500/10 transition-colors"
+  >
+    Logout
+  </button>
+</div>
           </div>
           <div className="flex items-center gap-2 mt-2">
             <div className="flex-1 h-1.5 bg-slate-800 rounded-full overflow-hidden">
